@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIS 3D presenta GAME BOY NFC</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #000000;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Pantalla inicial idéntica a la imagen */
+    #start-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100dvh;
+      background: radial-gradient(circle, #2a1b3d 0%, #0a0a0a 100%);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #start-overlay h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      color: #9b4dca;
+    }
+
+    #start-overlay p {
+      font-size: 14px;
+      color: #aaaaaa;
+      margin-bottom: 30px;
+    }
+
+    #btn-start {
+      padding: 18px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      background-color: #7b2cbf;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(123, 44, 191, 0.45);
+      transition: transform 0.1s ease, background-color 0.2s ease;
+    }
+
+    #btn-start:active {
+      transform: scale(0.95);
+      background-color: #5a189a;
+    }
+
+    
+    #game-container {
+      width: 100vw;
+      height: 100dvh;
+      max-width: 600px;
+      position: relative
+    }
+    #game {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Pantalla de inicio -->
+  <div id="start-overlay">
+    <h1>PRIS 3D GAME BOY</h1>
+    <p>Presiona el botón para iniciar la consola</p>
+    <button id="btn-start">START GAME</button>
+  </div>
+
+  
+  
+  <!-- Contenedor donde se dibuja el emulador -->
+  <div id="game-container">
+    <div id="game"></div>
+  </div>
+
+  <!-- Configuración de EmulatorJS -->
+  <script>
+document.getElementById('btn-start').addEventListener('click', function (){
+    // 1. Quita la pantalla inicial
+document.getElementById('start-overlay').style.display = 'none';
+
+   // 2. Activa el audio en Iphone
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (AudioCtx) new AudioCtx().resume();
+  
+    // 1. Dónde se montará el juego
+    EJS_player = '#game';
+
+    // 2. Consola que emula:
+    // Usa 'nes' para Nintendo NES o 'gb' para Game Boy clásica
+    EJS_core = 'gb'; 
+
+    // 3. Nombre EXACTO del archivo ROM que subiste a GitHub
+    EJS_gameUrl = 'AdventureIsland.gb'; 
+
+    // 4. Servidor que carga el motor del emulador
+    EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+
+  EJS_language = 'es-ES';
+    EJS_startOnLoaded = true;
+  const script = document.createElement('script');
+script.src='https://cdn.emulatorjs.org/stable/data/loader.js';
+    document.body.appendChild(script);
+  });
+    </script>
+
+
+</body>
+</html>
